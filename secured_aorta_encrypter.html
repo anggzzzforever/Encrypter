@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ボットAortaEncrypterボット</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;" onkeydown="return disableKeys(event);">
+    <h1>Aorta Encrypter</h1>
+    <textarea id="codeInput" placeholder="Masukkan kode JavaScript atau Node.js di sini..." oncopy="return false;" oncut="return false;" onpaste="return false;"></textarea>
+    <button id="obfuscateButton">Obfuscate</button>
+    <button id="resetButton">Reset</button>
+    <button id="downloadButton" style="display:none;">Download Hasil</button>
+    <h2>Hasil Obfuscate:</h2>
+    <textarea id="resultOutput" readonly></textarea>
+    <div align="right">
+        <section class="py-5 bg-dark section-angle top-right bottom-left">
+            <div class="col-12 text-muted text-center">
+                <a href="https://t.me/aortadev" target="_blank">Aortadev - Powered by Aorta dev</a>
+            </div>
+        </section>
+    </div>
+    <script>
+        function disableKeys(e) {
+            if ((e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'p')) || e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        let isObfuscated = false;
+        const uniqueString = 'ボットAortaEncrypterボット';
+
+        function obfuscateCode(code) {
+            const base64Encoded = btoa(unescape(encodeURIComponent(code)));
+            let finalCode = `"Powered by AortaDev"
+
+`;
+            for (let i = 0; i < base64Encoded.length; i++) {
+                finalCode += base64Encoded[i];
+                if (Math.random() < 0.15) {
+                    finalCode += uniqueString;
+                }
+            }
+            return `// Obfuscated by AortaEncrypter 
+
+${finalCode}`;
+        }
+
+        document.getElementById('obfuscateButton').addEventListener('click', function() {
+            if (isObfuscated) {
+                alert("Hasil obfuscate sudah ada. Silakan reset sebelum melakukan obfuscate lagi.");
+                return;
+            }
+            const code = document.getElementById('codeInput').value;
+            if (!code) {
+                alert("Masukkan kode untuk obfuscate.");
+                return;
+            }
+            const obfuscatedCode = obfuscateCode(code);
+            document.getElementById('resultOutput').value = obfuscatedCode;
+            document.getElementById('downloadButton').style.display = 'inline';
+            isObfuscated = true;
+        });
+
+        document.getElementById('resetButton').addEventListener('click', function() {
+            document.getElementById('codeInput').value = '';
+            document.getElementById('resultOutput').value = '';
+            document.getElementById('downloadButton').style.display = 'none';
+            isObfuscated = false;
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            const resultOutput = document.getElementById('resultOutput').value;
+            const blob = new Blob([resultOutput], { type: 'application/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'obfuscated_advanced.js';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
