@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://pomf2.lain.la/f/sv89risp.JPG" type="icon">
     <title>ボットAortaEncrypterボット</title>
     <style>
         body {
@@ -108,12 +109,23 @@ ${finalCode}`;
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'obfuscated_advanced.js';
+            a.download = 'hasil-enc.txt';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
+
+        (function() {
+            const allowedDomains = ["aorta-obfuscate.vercel.app"];
+            const referrer = document.referrer || window.location.hostname;
+
+            if (!allowedDomains.some(domain => referrer.includes(domain))) {
+                document.body.innerHTML = '<h1>Access Denied</h1><p>You are not authorized to view this page.</p>';
+                throw new Error("Unauthorized access attempt detected.");
+            }
+        })();
+    </script>
     </script>
 </body>
 </html>
