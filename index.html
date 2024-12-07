@@ -62,7 +62,9 @@
         }
 
         let isObfuscated = false;
-   
+        const uniqueString = 
+            "齐/*AortaEncrypter/*^/*($break)*/" +
+            "/*Aortadev/*^/*($break)*/";
 
         function obfuscateCode(code) {
             const base64Encoded = btoa(unescape(encodeURIComponent(code)));
@@ -78,54 +80,7 @@
             return `// Obfuscated by AortaEncrypter 
 
 ${finalCode}`;
-        } function () {
-          const originalString =
-            "齐/*AortaEncrypter/*^/*($break)*/" +
-            "/*Aortadev/*^/*($break)*/";
-
-          function hapusKarakterTidakDiinginkan(input) {
-            return input.replace(
-              /[^a-zA-Z/*ᨒZenn/*^/*($break)*/]/g,
-              ''
-            );
-          }
-
-          function stringAcak(panjang) {
-            let hasil = '';
-            const karakter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            const panjangKarakter = karakter.length;
-
-            for (let i = 0; i < panjang; i++) {
-              hasil += karakter.charAt(
-                Math.floor(Math.random() * panjangKarakter)
-              );
-            }
-            return hasil;
-          }
-
-          return hapusKarakterTidakDiinginkan(originalString) + stringAcak(2);
-        },
-        renameVariables: true,
-        renameGlobals: true,
-        stringEncoding: 0.01,
-        stringSplitting: 0.1,
-        stringConcealing: true,
-        stringCompression: true,
-        duplicateLiteralsRemoval: true,
-        shuffle: { hash: false, true: false },
-        stack: false,
-        controlFlowFlattening: false,
-        opaquePredicates: false,
-        deadCode: false,
-        dispatcher: false,
-        rgf: false,
-        calculator: false,
-        hexadecimalNumbers: false,
-        movedDeclarations: true,
-        objectExtraction: true,
-        globalConcealing: true
-      });
-    }
+        }
 
         document.getElementById('obfuscateButton').addEventListener('click', function() {
             if (isObfuscated) {
