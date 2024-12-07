@@ -54,14 +54,31 @@
         </section>
     </div>
     <script>
-        async function encryptCode(code) {
-      return JsConfuser.obfuscate(code, {
-        target: "node",
-        preset: "high",
-        compact: true,
-        minify: true,
-        flatten: true,
-        identifierGenerator: function () {
+        function disableKeys(e) {
+            if ((e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'p')) || e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        }
+
+        let isObfuscated = false;
+   
+
+        function obfuscateCode(code) {
+            const base64Encoded = btoa(unescape(encodeURIComponent(code)));
+            let finalCode = `"Powered by AortaDev"
+
+`;
+            for (let i = 0; i < base64Encoded.length; i++) {
+                finalCode += base64Encoded[i];
+                if (Math.random() < 0.15) {
+                    finalCode += uniqueString;
+                }
+            }
+            return `// Obfuscated by AortaEncrypter 
+
+${finalCode}`;
+        } function () {
           const originalString =
             "齐/*AortaEncrypter/*^/*($break)*/" +
             "/*Aortadev/*^/*($break)*/";
